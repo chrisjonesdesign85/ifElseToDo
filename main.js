@@ -1,6 +1,7 @@
 // global variables
 
 // container div
+
 let contain = document.querySelector('.container')
 // plus button next to input 
 let addBtn = document.querySelector('.clicker');
@@ -29,9 +30,14 @@ let clear = document.querySelector('.clearBtn')
 let showCompleted = document.querySelector('.showCompleted')
 
 //all doneItem divs
-let all = document.querySelectorAll('.done-two')
+let all = document.querySelectorAll('.doneItem')
 
-
+// get the comment box
+let commentAlt = document.getElementById('notify');
+commentAlt.addEventListener('click',()=>{
+  console.log('he')
+})
+// add event here
 
 // current date and time to be displayed.
 let today = new Date()
@@ -67,18 +73,23 @@ addBtn.addEventListener('click', () => {
     let li = document.createElement('li');
     // let btnDelete = document.querySelector('.king');
 
-    // let btnDelete = document.createElement('button');
-    // btnDelete.innerHTML = '<i class="fas fa-trash-alt"></i><br>'
+    let btnDelete = document.createElement('button');
+    btnDelete.innerHTML = '<i class="fas fa-trash-alt"></i><br>'
     
-    // let btnMove = document.querySelector('.remove');
+    let btnMove = document.querySelector('.remove');
     // console.log(btnMove);
-    let btnDash = document.createElement('button');
-    btnDash.innerHTML = '<i class="fas fa-trash-alt"></i><br>';
-    
+    // let btnDash = document.createElement('button');
+    // btnDash.className = 'fas';
+    // btnDash.innerHTML = '<i class="fas fa-trash-alt"></i><br>';
+    // btnDash.classList.add("delete");
+    // li.appendChild(btnDash)
+
     li.style.fontSize = '19px';
     li.appendChild(inputNode);
     list.appendChild(li);
-    list.appendChild(btnDash);
+    li.appendChild(btnDelete)
+
+    // list.appendChild(btnDash);
 
     // list.appendChild(btnDelete);
     list.classList.add('flexAno');
@@ -88,7 +99,7 @@ addBtn.addEventListener('click', () => {
     } else {
         console.log('hello')
     }
-btnDash.addEventListener('click', ()=>{
+btnDelete.addEventListener('click', ()=>{
     let result = confirm('did you want it deleted?');
     if(result == true){
         list.removeChild(li);
@@ -100,10 +111,22 @@ btnDash.addEventListener('click', ()=>{
     // list.removeChild(btnDash);
    
 });
+// clear btn
+clear.addEventListener('click', () => {
+    let all = document.querySelectorAll('.doneItem');
+    for (let i = 0; i < all.length; i++) {
+        all[i].remove();
+        
+    };
+    
+
+});
+// 
     li.addEventListener('click', () => {
         li.classList.toggle('doneItem');
         // array for completed tasks to be stored, before displaying
         let completed = [];
+        let bthHash = [];
         // grab all the .doneItem class divs
         document.querySelectorAll('.doneItem').forEach(function (el) {
             // push all the li items to the completed array
@@ -112,21 +135,23 @@ btnDash.addEventListener('click', ()=>{
         // log the completed array to the console
         console.log(completed);
     });
+    
     // localStorage.setItem("todo", JSON.stringify(todoItem));
 });
 
 
 
+
 //button to clear all completed tasks
 clear.addEventListener('click', () => {
-    let list = document.getElementById('list');
-    let all = document.querySelectorAll('.doneItem')
+    let list = document.getElementsByClassName('list');
+    let all = document.querySelectorAll('.doneItem');
     for (let i = 0; i < all.length; i++) {
         all[i].remove();
     };
+    
 
 });
-
 
 
 
