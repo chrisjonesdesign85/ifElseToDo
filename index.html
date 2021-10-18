@@ -1,64 +1,77 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <!-- font awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta2/css/all.min.css" integrity="sha512-YWzhKL2whUzgiheMoBFwW8CKV4qpHQAEuvilg9FAn5VJUDwKZZxkJNuGM4XkWuk94WCrrwslk8yWNGmY1EduTA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta2/css/all.min.css"
+      integrity="sha512-YWzhKL2whUzgiheMoBFwW8CKV4qpHQAEuvilg9FAn5VJUDwKZZxkJNuGM4XkWuk94WCrrwslk8yWNGmY1EduTA=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
     <!-- style sheet -->
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="styles.css" />
     <title>ifElse To Do List</title>
-</head>
+  </head>
 
-<body>
+  <body>
     <nav>
-        <h2>ifElse T0D0 List</h2>
-        <button id="notify"><i class="far fa-comment-alt"></i></button>
+      <h2>ifElse T0D0 List</h2>
+      <button id="notify"><i class="far fa-comment-alt"></i></button>
     </nav>
     <header>
-            <div class="overflow-bc">
-                <div class="containerB">
-                    <div class="whiteBc">
-                        <!-- <h3>IfElseCode Todo</h3> -->
-                    </div>
-                </div>
-            </div>
+      <div class="overflow-bc">
+        <div class="containerB">
+          <div class="whiteBc">
+            <!-- <h3>IfElseCode Todo</h3> -->
+          </div>
+        </div>
+      </div>
     </header>
     <main class="container">
-        <section class="backdrop">
+      <section class="backdrop">
+        <form id="to-do-form">
+          <input
+            id="taskItem"
+            type="text"
+            placeholder="add todo item here..."
+          />
+          <button class="clicker">+</button>
+        </form>
 
-            <form id="to-do-form">
-                <input id="taskItem" type="text">
-                <button class="clicker">+</button>
-            </form>
+        <section class="tasks">
+          <ul id="list"></ul>
+          <!-- end list -->
+        </section>
+        <!-- end tasks -->
 
-            <section class="tasks">
-                <ul id="list">
-                  
-                </ul><!-- end list -->
-            </section><!-- end tasks -->
+        <section class="flex">
+          <button class="clearBtn">clear Completed</button>
+          <button onclick="showHideCompleted()" class="showCompleted">
+            Show Completed
+          </button>
+        </section>
+        <!-- end flex -->
 
-            <section class="flex">
-                <button class="clearBtn">clear Completed</button>
-                <button class="showCompleted">Show Completed</button>
-            </section><!-- end flex -->
+        <section class="completed">
+          <h3>Completed Tasks:</h3>
+          <div id="completedTasks">
+            <ul id="compTasks"></ul>
+          </div>
+          <!-- end completedTasks-->
+        </section>
+        <!-- end completed -->
 
-            <section class="completed">
-                <h3>Completed Tasks:</h3>
-                <div class="completedTasks">
-                    <ul class="done-two"></ul>
-                </div><!-- end completedTasks-->
-            </section><!-- end completed -->
-
-            <footer>
-                <p>copyright &copy; ifElseCode 2021</p>
-            </footer>
-            
-        </section><!-- ent backdrop -->
-    </main><!-- end container -->
+        <footer>
+          <p>copyright &copy; ifElseCode 2021</p>
+        </footer>
+      </section>
+      <!-- ent backdrop -->
+    </main>
+    <!-- end container -->
     <script src="main.js"></script>
-</body>
-
+  </body>
 </html>
