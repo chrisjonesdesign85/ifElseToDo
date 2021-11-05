@@ -146,9 +146,9 @@ addBtn.addEventListener('click', () => {
             if(li.classList.contains("doneItem") == false) {
                 dDivLi.classList.toggle("removeDiv")
             
-                    let item = document.querySelector("#completedTasks > li")
+                //     let item = document.querySelector("#completedTasks > li")
                     
-                item.remove()
+                // item.target.remove()
             } 
         
         });
