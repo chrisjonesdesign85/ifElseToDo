@@ -86,8 +86,7 @@ nav {
 
 .flex {
   display: flex;
-  justify-content: space-between;
-  align-items: center;
+  justify-content: space-evenly;
 }
 
 li {
@@ -193,7 +192,6 @@ h3 {
   height: 18px;
   top: 16px;
   right: 30px;
-
   font-size: 16px;
   font-family: "Times New Roman", Times, serif;
   border-radius: 50px;
@@ -204,7 +202,7 @@ h3 {
 
 #completedTasks {
   background-color: rgba(255, 255, 255, 0.205);
-  display: none;
+  /* display: none; */
 }
 
 #compTasks {
@@ -216,6 +214,21 @@ h3 {
   text-decoration: none;
 }
 
+#completed {
+  display: none;
+}
+.removeDiv {
+  display: none;
+  background-color: red;
+}
+
+.clearBtn {
+  float: right;
+}
+
+.showCompleted {
+  float: right;
+}
 /* animation part 1 */
 
 /* header */
