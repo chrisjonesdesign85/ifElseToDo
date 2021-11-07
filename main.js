@@ -47,7 +47,7 @@ let all = document.querySelectorAll('.doneItem')
 
 // get the comment box (in the nav)
 let commentAlt = document.getElementById('notify');
-commentAlt.addEventListener('click',()=>{
+commentAlt.addEventListener('click',() => {
   console.log('he');
 })
 
@@ -89,75 +89,37 @@ addBtn.addEventListener('click', () => {
     list.appendChild(li);
     li.appendChild(btnDelete)
 
-    // not sure what this is exactly lol
-    // list.classList.add('flexAno');
     if (inputList === "") {
         li.remove();
-    } else {
-        // console.log('hello')
-    }
+    } 
     
-    // toggle the doneItem class to done items. giving it the strike-through and grey color signifying a done item.
+
     li.addEventListener('click', () => {
         li.classList.toggle('doneItem');
-        
-        //array completed tasks to be stored, before displaying
-        // let completed = []; // create a new empty array to store the done items
-        // let compTasks =  document.getElementById('completedTasksDiv');   
-
-        // grab all the .doneItem class divs and push them to the complted array
-        // document.querySelectorAll('.doneItem').forEach(function (el) {
-            // push all the li items to the completed array
-            // completed.push(el.textContent);
-                
-        // });
-        
-        
-        
-        
-        // compTasks.innerHTML = completed.map(i => `<li>${i}</li>`).join('') // we were adding the date/time inside the li here but this is where it will update all the time/dates every time anew task is completed.
-        //     // here I was trying to add a new class name to the li items in the 'completed tasks' div to be able to add the date/time
-        
-        // let newLi = document.querySelectorAll("#compTasks > li");
-        //     newLi.forEach(x => {                                                            
-        //         x.classList.add('new')
-                
-        //     }); 
-         
-        }); 
-
-        li.addEventListener('click', () => {
+        const today = new Date();
+        const date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate() + " " + today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+        const dateTime = date;
+        let completedTasksDiv = document.getElementById('completedTasks');
+        // let dUl = document.createElement('ul')
+        let dDivLi = document.createElement("li");
+        let dDivP = document.createElement("p");
+        dDivP.innerHTML = dateTime;
+        dDivLi.append(li.textContent);
+        dDivLi.appendChild(dDivP);
+        completedTasksDiv.appendChild(dDivLi);
+        // console.log(e.target)
+        completedTasksDiv.append(dDivLi);
+        console.log(dDivLi.textContent);    
             
-            const today = new Date();
-            const date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate() + " " + today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
-            const dateTime = date;
-            let completedTasksDiv = document.getElementById('completedTasks');
-            // let dUl = document.createElement('ul')
-            let dDivLi = document.createElement("li");
-            let dDivP = document.createElement("p");
-            dDivP.innerHTML = dateTime;
-            dDivLi.append(li.textContent);
-            dDivLi.appendChild(dDivP);
-            completedTasksDiv.appendChild(dDivLi);
-            // console.log(e.target)
-            completedTasksDiv.append(dDivLi);
-            console.log(dDivLi.textContent);    
+        if(li.classList.contains("doneItem") == false) {
+            dDivLi.classList.toggle("removeDiv")
             
-            if(li.classList.contains("doneItem") == false) {
-                dDivLi.classList.toggle("removeDiv")
-            
-                //     let item = document.querySelector("#completedTasks > li")
+                //     let item = document.querySelector("#completedTasks > li.target")
                     
-                // item.target.remove()
-            } 
+                // item.remove()
+        } 
         
-        });
-
-        
-
-        
-
-       
+    });       
         // li.addEventListener('click', (e) => {
         //       if(li.classList.contains("doneItem") == false){ 
         //         return  e.currentTarget;
@@ -168,13 +130,18 @@ addBtn.addEventListener('click', () => {
         // })
         
     // confirm if you want a task deleted when pressing the delete icon next to a task item.
-    btnDelete.addEventListener('click', () =>{
+    btnDelete.addEventListener('click', (e) =>{
+        e.stopPropagation()
         let result = confirm('Do you want to delete this item?');
         if(result == true){
             list.removeChild(li);
+            console.log("cancel was clicked")
         } else {
             return true;
+            
+
         }
+        
     }); // end btnDelete
 }); // end addBtn // I don't know if this should be all the way down here or if it should have all the other functions inside it
 
@@ -183,7 +150,6 @@ clear.addEventListener('click', () => {
     if (message == true) {
         let item = completedTasks.getElementsByTagName('li')
         let topItems = list.getElementsByClassName('doneItem')
-        let doneDiv = document.getElementById('completedTasks');
 
         for (let i = item.length - 1; i >= 0; --i) {
             item[i].remove()
@@ -213,11 +179,9 @@ function showHideCompleted() {
         }
     }
 
-
 // removes previous text in input field.
 let formId = document.getElementById('to-do-form');
 formId.addEventListener("submit", (e) => {
     e.preventDefault();
     inputUl.value = "";
 });
-
