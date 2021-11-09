@@ -89,7 +89,6 @@ addBtn.addEventListener('click', () => {
         li.remove();
     } 
     
-
     li.addEventListener('click', () => {
         li.classList.toggle('doneItem');
         const today = new Date();
@@ -104,7 +103,6 @@ addBtn.addEventListener('click', () => {
         completedTasksDiv.appendChild(dDivLi);
         completedTasksDiv.append(dDivLi);
         console.log(dDivLi.textContent);    
-            
         if(li.classList.contains("doneItem") == false) {
             dDivLi.classList.toggle("removeDiv")
         } 
@@ -119,7 +117,7 @@ addBtn.addEventListener('click', () => {
         } else {
             return true;
         }
-        
+        removeLocalTodos(todo)
     }); // end btnDelete
 }); // end addBtn // I don't know if this should be all the way down here or if it should have all the other functions inside it
 
@@ -196,12 +194,10 @@ function getToDos() {
         li.appendChild(inputNode);
         list.appendChild(li);
         li.appendChild(btnDelete)
-
         if (inputList === "") {
             li.remove();
         } 
         
-    
         li.addEventListener('click', () => {
             li.classList.toggle('doneItem');
             const today = new Date();
@@ -231,9 +227,22 @@ function getToDos() {
             } else {
                 return true;
             }
-            
-        }); // end btnDelete
-
-        
+            removeLocalTodos(todo)
+        }); // end btnDelete        
     })
+}
+
+function removeLocalTodos(todo){
+      // check to see if there is a localStorage
+      let todos;
+      if (localStorage.getItem("todos") === null) {
+          todos = []
+      } else {
+          todos = JSON.parse(localStorage.getItem("todos"))
+      }
+      const todoIndex = todos.indexOf(todo);
+      todos.splice(todoIndex, 1)
+      localStorage.setItem('todos', JSON.stringify(todos))
+      console.log(todoIndex)
+      console.log(todos)
 }
