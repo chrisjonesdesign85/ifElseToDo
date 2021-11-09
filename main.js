@@ -1,5 +1,4 @@
 // global variables
-
 // container div
 let contain = document.querySelector('.container')
 
@@ -43,20 +42,20 @@ let showCompleted = document.querySelector('.showCompleted')
 //all doneItem li's
 let all = document.querySelectorAll('.doneItem')
 
-
-
 // get the comment box (in the nav)
 let commentAlt = document.getElementById('notify');
 commentAlt.addEventListener('click',() => {
   console.log('he');
 })
 
+//get todos from localStorage and create them on page load.
+document.addEventListener('DOMContentLoaded', getToDos)
+
 
 // to-do form
 let form = document.querySelector('form');
 form.addEventListener('submit', (e) => {
     e.preventDefault();
-    
     // alert if the input field is blank and user presses the addBtn
     if (document.getElementById('taskItem').value === "") {
         alert('Please add an item');
@@ -67,14 +66,11 @@ form.addEventListener('submit', (e) => {
 
 });
 
-
-
 // Add task when Enter/Return key is pressed. 
 inputUl.addEventListener("keyup", (event) => {
     if (event.code === 'Enter') {
         event.preventDefault();
     }
-
 });
 
 // add a todo li item 
@@ -88,7 +84,7 @@ addBtn.addEventListener('click', () => {
     li.appendChild(inputNode);
     list.appendChild(li);
     li.appendChild(btnDelete)
-
+    saveLocalTodos(li.textContent)
     if (inputList === "") {
         li.remove();
     } 
@@ -100,34 +96,19 @@ addBtn.addEventListener('click', () => {
         const date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate() + " " + today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
         const dateTime = date;
         let completedTasksDiv = document.getElementById('completedTasks');
-        // let dUl = document.createElement('ul')
         let dDivLi = document.createElement("li");
         let dDivP = document.createElement("p");
         dDivP.innerHTML = dateTime;
         dDivLi.append(li.textContent);
         dDivLi.appendChild(dDivP);
         completedTasksDiv.appendChild(dDivLi);
-        // console.log(e.target)
         completedTasksDiv.append(dDivLi);
         console.log(dDivLi.textContent);    
             
         if(li.classList.contains("doneItem") == false) {
             dDivLi.classList.toggle("removeDiv")
-            
-                //     let item = document.querySelector("#completedTasks > li.target")
-                    
-                // item.remove()
         } 
-        
     });       
-        // li.addEventListener('click', (e) => {
-        //       if(li.classList.contains("doneItem") == false){ 
-        //         return  e.currentTarget;
-        //          dDivLi.remove()
-        //      }  else {
-        //          return false
-        //      }
-        // })
         
     // confirm if you want a task deleted when pressing the delete icon next to a task item.
     btnDelete.addEventListener('click', (e) =>{
@@ -135,11 +116,8 @@ addBtn.addEventListener('click', () => {
         let result = confirm('Do you want to delete this item?');
         if(result == true){
             list.removeChild(li);
-            console.log("cancel was clicked")
         } else {
             return true;
-            
-
         }
         
     }); // end btnDelete
@@ -185,3 +163,77 @@ formId.addEventListener("submit", (e) => {
     e.preventDefault();
     inputUl.value = "";
 });
+
+// storage()
+function saveLocalTodos(todo) {
+    // check to see if there is a localStorage
+    let todos;
+    if (localStorage.getItem("todos") === null) {
+        todos = []
+    } else {
+        todos = JSON.parse(localStorage.getItem("todos"))
+    }
+    todos.push(todo)
+    localStorage.setItem("todos", JSON.stringify(todos))
+}
+
+function getToDos() {
+    // check to see if there is a localStorage
+    let todos;
+    if (localStorage.getItem("todos") === null) {
+        todos = []
+    } else {
+        todos = JSON.parse(localStorage.getItem("todos"))
+    }
+
+    todos.forEach(function(todo){
+        let inputList = todo
+        let inputNode = document.createTextNode(inputList);
+        let li = document.createElement('li');
+        let btnDelete = document.createElement('button');
+        btnDelete.innerHTML = '<i class="fas fa-trash-alt"></i><br>'
+        li.style.fontSize = '19px';
+        li.appendChild(inputNode);
+        list.appendChild(li);
+        li.appendChild(btnDelete)
+
+        if (inputList === "") {
+            li.remove();
+        } 
+        
+    
+        li.addEventListener('click', () => {
+            li.classList.toggle('doneItem');
+            const today = new Date();
+            const date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate() + " " + today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+            const dateTime = date;
+            let completedTasksDiv = document.getElementById('completedTasks');
+            let dDivLi = document.createElement("li");
+            let dDivP = document.createElement("p");
+            dDivP.innerHTML = dateTime;
+            dDivLi.append(li.textContent);
+            dDivLi.appendChild(dDivP);
+            completedTasksDiv.appendChild(dDivLi);
+            completedTasksDiv.append(dDivLi);
+            console.log(dDivLi.textContent);    
+                
+            if(li.classList.contains("doneItem") == false) {
+                dDivLi.classList.toggle("removeDiv")
+            } 
+        });       
+            
+        // confirm if you want a task deleted when pressing the delete icon next to a task item.
+        btnDelete.addEventListener('click', (e) =>{
+            e.stopPropagation()
+            let result = confirm('Do you want to delete this item?');
+            if(result == true){
+                list.removeChild(li);
+            } else {
+                return true;
+            }
+            
+        }); // end btnDelete
+
+        
+    })
+}
