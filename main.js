@@ -1,3 +1,10 @@
+//the commentBtn and the info
+let notify = document.getElementById('notify');
+let overflow_bc = document.querySelector('.overflow-bc');
+let closeNet = document.getElementById('close');
+let hideh2 = document.querySelector('.hide-h2');
+let hideLi = document.querySelector('.hide-Li');
+
 // global variables
 // container div
 let contain = document.querySelector('.container')
@@ -246,3 +253,17 @@ function removeLocalTodos(todo){
       console.log(todoIndex)
       console.log(todos)
 }
+
+//Tips Js
+notify.addEventListener('click',()=>{
+    overflow_bc.classList.toggle('anime');
+    notify.classList.toggle('hide');
+    hideh2.classList.toggle('showh2');
+    hideLi.classList.toggle('showLi');
+});
+closeNet.addEventListener('click',()=>{
+    overflow_bc.classList.remove('anime');
+    notify.classList.remove('hide');
+    hideh2.classList.remove('showh2');
+    hideLi.classList.remove('showLi');
+});
